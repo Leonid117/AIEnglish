@@ -15,8 +15,7 @@ struct SentencesView: View {
                 LazyVStack() {
                     Text("Apples and bananas grow on trees")
                     Text("Яблоки и бананы растут на деревьях")
-                        .font(.caption)
-                        .foregroundColor(Color.blue)
+                        .font(.caption).foregroundColor(Color.blue)
                 }
                 
                 Divider()

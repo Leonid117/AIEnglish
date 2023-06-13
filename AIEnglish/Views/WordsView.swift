@@ -11,43 +11,47 @@ struct WordsView: View {
     
     @State private var topic = ""
     @State var topicSelection = TopicSelection.categories
+    @State var history: [String] = []
     
     var body: some View {
         
         ScrollView {
-            LazyVStack{
+            VStack{
                 Text("Choose the topic")
                 
-                LazyHStack(){
+                HStack(){
                     TextField("What do you want to talk about?", text: $topic)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+
                     Button("Send") {
-                    }
-                    .buttonStyle(.borderedProminent)
-                
-                }
-                
-                Section() {
-                    Picker("Provider", selection: $topicSelection) {
-                        ForEach(TopicSelection.allCases) {
-                            Text($0.text).id($0)
+                        if topic.isEmpty {
+                            
+                        } else {
+                            if history.contains(topic) == false {
+                                history.append(topic)
+                            }
+                            
                         }
                     }
-                    #if !os(watchOS)
-                    .pickerStyle(.segmented)
-                    #endif
+                    .buttonStyle(.borderedProminent)
+                    .disabled(topic.trimmingCharacters(in: .whitespacesAndNewlines) .isEmpty)
+                
                 }
                 
-                Section() {
-                    switch topicSelection {
-                    case .categories:
-                        CategoryView().padding(.leading, 8)
-                    case .history:
-                        Text("321")
-                        Text("321")
-                        Text("321")
-                        Text("321")
+                Picker("Provider", selection: $topicSelection) {
+                    ForEach(TopicSelection.allCases) {
+                        Text($0.text).id($0)
                     }
+                }
+                #if !os(watchOS)
+                .pickerStyle(.segmented)
+                #endif
+                
+                switch topicSelection {
+                case .categories:
+                    CategoryView(topic: $topic).padding(.leading, 8)
+                case .history:
+                    HistoryView(history: history)
                 }
                 GeneratedWordsView()
                 SentencesView()

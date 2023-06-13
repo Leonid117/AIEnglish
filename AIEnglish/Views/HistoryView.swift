@@ -8,13 +8,23 @@
 import SwiftUI
 
 struct HistoryView: View {
+    let history: [String]
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        LazyVGrid(
+            columns: [
+                GridItem(.flexible(), spacing: 10, alignment: .leading),
+                GridItem(.flexible(), spacing: 10, alignment: .leading)
+            ]
+        ) {
+            ForEach (history, id: \.self) { historyCell in
+                Text(historyCell)
+            }
+        }
     }
 }
 
 struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        HistoryView()
+        HistoryView(history: ["123", "4232", "3242"])
     }
 }

@@ -28,21 +28,26 @@ struct GeneratedWords: Identifiable {
 
 
 struct CategoryView: View {
-    let Categories = GeneratedWords.preview()
-    private var columns: [GridItem] = [
+     
+    @Binding var topic: String
+    private let categories = GeneratedWords.preview()
+    private let columns: [GridItem] = [
         GridItem(.adaptive(minimum: 100), spacing: 10, alignment: .leading),
         GridItem(.adaptive(minimum: 100), spacing: 10, alignment: .leading)
-        ]
+    ]
 
-        var body: some View {
-            LazyVGrid(
-                columns: columns,
-                alignment: .center,
-                spacing: 16,
-                pinnedViews: [.sectionHeaders, .sectionFooters]
-            ) {
-                Section() {
-                    ForEach(Categories) { category in
+    var body: some View {
+        LazyVGrid(
+            columns: columns,
+            alignment: .center,
+            spacing: 16,
+            pinnedViews: [.sectionHeaders, .sectionFooters]
+        ) {
+            Section() {
+                ForEach(categories) { category in
+                    Button {
+                        topic = category.name
+                    } label: {
                         HStack {
                             Text(category.icon)
                             Text(category.name)
@@ -51,10 +56,11 @@ struct CategoryView: View {
                 }
             }
         }
+    }
 }
 
 struct CategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryView()
+        CategoryView(topic: .constant(""))
     }
 }

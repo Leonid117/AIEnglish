@@ -19,36 +19,32 @@ struct GeneratedWordsView: View {
         ]
     
     var body: some View {
-        NavigationView {
-            
-            VStack {
-                Text("Choose the words you don't know")
-                LazyVGrid(
-                    columns: columns,
-                    alignment: .leading,
-                    spacing: 16,
-                    pinnedViews: [.sectionHeaders, .sectionFooters]
-                ) {
-                    ForEach(words, id: \.self) { word in
-                        
-                        Button {
-                            if selectedWords .contains(word) {
-                                selectedWords.remove(word)
-                            } else {
-                                selectedWords.insert(word)
-                            }
-                        } label: {
-                            Text(word)
-                                .padding(3)
-                                .frame(maxWidth:.infinity)
-                                .background(selectedWords.contains(word) ? Color.red : Color.clear)
+        VStack {
+            Text("Choose the words you don't know")
+            LazyVGrid(
+                columns: columns,
+                alignment: .leading,
+                spacing: 16,
+                pinnedViews: [.sectionHeaders, .sectionFooters]
+            ) {
+                ForEach(words, id: \.self) { word in
+                    
+                    Button {
+                        if selectedWords .contains(word) {
+                            selectedWords.remove(word)
+                        } else {
+                            selectedWords.insert(word)
                         }
+                    } label: {
+                        Text(word)
+                            .padding(3)
+                            .frame(maxWidth:.infinity)
+                            .background(selectedWords.contains(word) ? Color.red : Color.clear)
                     }
                 }
-            
-        }
-            
-        }
+            }
+        
+    }
     }
     
 }
