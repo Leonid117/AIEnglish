@@ -27,7 +27,14 @@ struct API {
         }
         
         return elements
+    }
+    
+    func getSentenses() async throws -> [String] {
+        let url = URL(string: "https://run.mocky.io/v3/2dd8c653-f6ac-4cf3-adb2-bcaf0459c510")!
+        let (data, _) = try await URLSession.shared.data(from: url)
         
+        let answer = try JSONDecoder().decode(ResponseData.self, from: data).answer
+        return try await words(fromAnswer: answer)
     }
 }
 

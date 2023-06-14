@@ -6,10 +6,26 @@
 //
 
 import Foundation
+
+@MainActor
 final class Main: ObservableObject {
-    @Published var topic = ""
+    private let api = API()
+    @Published var topic = "" {
+        didSet {
+            Task {
+                do {
+                    generatedWords = try await api.getWords()
+                } catch {
+                    self.error = error
+                }
+            }
+        }
+    }
+    
+    @Published var error: Error?
     @Published var topicSelection = TopicSelection.categories
     @Published var history: [String] = []
+    @Published var generatedWords: [String] = []
     
     enum TopicSelection: Identifiable, CaseIterable {
         

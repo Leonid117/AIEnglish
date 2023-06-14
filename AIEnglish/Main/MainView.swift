@@ -50,7 +50,7 @@ struct MainView: View {
                 case .history:
                     HistoryView(history: main.history)
                 }
-                GeneratedWordsView(generatedWords: [])
+                GeneratedWordsView(generatedWords: main.generatedWords)
                 SentencesView()
             }
         }
