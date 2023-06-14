@@ -12,9 +12,7 @@ struct PushSettingsView: View {
         
         VStack {
             NavigationView {
-                NavigationLink(destination: RegistrationView()) {
-                    Text("Go to reg view")
-                } .navigationBarTitle("PushSettings")
+              
             }
         }
     }

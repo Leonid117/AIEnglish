@@ -9,11 +9,11 @@ import SwiftUI
 
 
 struct GeneratedWordsView: View {
-
-    @State var words = ["Apple", "Banana", "Restart", "Fade", "Restore", "Sun", "Crate", "Feel", "Down", "Top"]
+    let generatedWords: [String]
+//    @State var generatedWords = ["Apple", "Banana", "Restart", "Fade", "Restore", "Sun", "Crate", "Feel", "Down", "Top"]
     @State var selectedWords: Set<String> = []
     
-    private var columns: [GridItem] = [
+    private let columns: [GridItem] = [
         GridItem(.adaptive(minimum: 100), spacing: 10, alignment: .leading),
         GridItem(.adaptive(minimum: 100), spacing: 10, alignment: .leading)
         ]
@@ -27,7 +27,7 @@ struct GeneratedWordsView: View {
                 spacing: 16,
                 pinnedViews: [.sectionHeaders, .sectionFooters]
             ) {
-                ForEach(words, id: \.self) { word in
+                ForEach(generatedWords, id: \.self) { word in
                     
                     Button {
                         if selectedWords .contains(word) {
@@ -51,6 +51,6 @@ struct GeneratedWordsView: View {
 
 struct GeneratedWordsView_Previews: PreviewProvider {
     static var previews: some View {
-        GeneratedWordsView()
+        GeneratedWordsView(generatedWords:["Apple", "Banana", "Orange"])
     }
 }
